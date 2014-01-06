@@ -1,8 +1,9 @@
 
 * Eazylazy 
 
-Everyone write it yourself once.
-Everyone needs it.
+Everyone has your own lazy-evaluation library.
+
+
 
 ** Usage
 
@@ -51,7 +52,10 @@ and forced ~map***~ family
                              lstream)))))
 #+END_SRC
 
-and =llist,ltree= etc...
+- =force,delay= is provided by =trivial-lazy= .
+- =forcef= modifies the place. the evaluated value goes into the
+  original position.
+- and =llist,ltree= etc...
 
 ** Dependencies
 
