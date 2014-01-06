@@ -20,10 +20,15 @@
   :author "Masataro Asai"
   :mailto ""
   :license ""
-  :depends-on (:trivial-lazy)
+  :depends-on (:trivial-lazy
+               :cl-syntax-annot)
   :components ((:module "src"
                 :components
-                ((:file "package"))))
+                ((:file :package)
+                 (:file :basics)
+                 (:file :mappers)
+                 (:file :misc))
+                :serial t))
   :description ""
   
   :long-description
