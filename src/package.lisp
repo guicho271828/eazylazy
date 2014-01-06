@@ -6,7 +6,7 @@
 (in-package :cl-user)
 (defpackage eazylazy
   (:use :cl :trivial-lazy :cl-syntax)
-  (:import-from :alexandria :symbolicate))
+  (:import-from :alexandria :symbolicate :with-gensyms))
 (in-package :eazylazy)
 (use-syntax :annot)
 ;; blah blah blah.

@@ -30,7 +30,6 @@
                  (:file :misc))
                 :serial t))
   :description ""
-  
   :long-description
   #.(with-open-file (stream (merge-pathnames
                              #p"includes/README.org"

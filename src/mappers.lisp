@@ -33,26 +33,26 @@
                  (setq temp (cdr temp))))))))
 
 @export
-(defun fmapc (function list &rest more-lists)
+(defun fmapc! (function list &rest more-lists)
   "Apply FUNCTION to successive elements of lists. Return the second argument."
   (fmap1! function (cons list more-lists) nil t))
 
 @export
-(defun fmapcar (function list &rest more-lists)
+(defun fmapcar! (function list &rest more-lists)
   "Apply FUNCTION to successive elements of LIST. Return list of FUNCTION
    return values."
   (fmap1! function (cons list more-lists) :list t))
 @export
-(defun fmapcan (function list &rest more-lists)
+(defun fmapcan! (function list &rest more-lists)
   "Apply FUNCTION to successive elements of LIST. Return NCONC of FUNCTION
    results."
   (fmap1! function (cons list more-lists) :nconc t))
 @export
-(defun fmapl (function list &rest more-lists)
+(defun fmapl! (function list &rest more-lists)
   "Apply FUNCTION to successive CDRs of list. Return NIL."
   (fmap1! function (cons list more-lists) nil nil))
 @export
-(defun fmaplist (function list &rest more-lists)
+(defun fmaplist! (function list &rest more-lists)
   "Apply FUNCTION to successive CDRs of list. Return list of results."
   (fmap1! function (cons list more-lists) :list nil))
 

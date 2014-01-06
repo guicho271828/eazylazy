@@ -43,20 +43,26 @@ Use only for the reader-intensive use."
 
 (define-forced-many
   (cdr lcons)
-  (car lcons)
-  (cddr lcons)
-  (cdddr lcons)
-  (cddddr lcons)
-  (caar lcons)
-  (caaar lcons)
-  (caaaar lcons)
-  (cadr lcons)
-  (cdar lcons)
-  (first lcons)
-  (second lcons)
-  (third lcons)
-  (fourth lcons)
-  (fifth lcons)
-  ;; lazy array
-  (aref array &rest subscripts))
+  (car lcons))
 
+@inline
+(defun faref (array &rest subscripts)
+  (force (apply #'aref array subscripts)))
+@inline
+(defun faref! (array &rest subscripts)
+  (forcef (apply #'aref array subscripts)))
+
+
+  ;; (cddr lcons)
+  ;; (cdddr lcons)
+  ;; (cddddr lcons)
+  ;; (caar lcons)
+  ;; (caaar lcons)
+  ;; (caaaar lcons)
+  ;; (cadr lcons)
+  ;; (cdar lcons)
+  ;; (first lcons)
+  ;; (second lcons)
+  ;; (third lcons)
+  ;; (fourth lcons)
+  ;; (fifth lcons)

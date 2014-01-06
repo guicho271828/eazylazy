@@ -17,5 +17,5 @@
                :fiveam)
   :components ((:module "t"
                 :components
-                ((:file ""))))
+                ((:file "package"))))
   :perform (load-op :after (op c) (PROGN (EVAL (READ-FROM-STRING "(fiveam:run! :eazylazy)")) (CLEAR-SYSTEM C))))

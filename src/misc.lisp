@@ -39,6 +39,6 @@
 
 @export
 (defmacro llet (bindings &body body)
-  `(let (,@(iter (for (var value) in bindings)
-                 (collect `(,var (lambda () ,value)))))
+  `(let (,@(loop for (var value) in bindings
+              collect `(,var (lambda () ,value))))
      ,@body))
