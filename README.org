@@ -1,0 +1,31 @@
+
+* Eazylazy 
+
+** Usage
+
+** Dependencies
+
+This library is at least tested on implementation listed below:
+
++ SBCL 1.1.12.11-a566e33 on X86-64 Linux  3.2.0-58-generic (author's environment)
+
+Also, it depends on the following libraries:
+
++ TRIVIAL-LAZY by  ::
+    Trivial lazy macros and functions for Common Lisp.
+
+
+
+** Installation
+
+
+** Author
+
++ Masataro Asai
+
+* Copyright
+
+Copyright (c) 2014 Masataro Asai
+
+
+
