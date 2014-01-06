@@ -52,3 +52,25 @@
                    (rec2 (1+ expected) (fcdr lcons)))))
         (rec2 0 lstream)))))
 
+
+(test (fmap :depends-on lcons)
+  (labels ((rec (n)
+             (when (plusp n)
+               (lcons n (rec (1- n))))))
+    (let ((lstream (rec 5)))
+
+      (is (equal '(10 8 6 4 2)
+                 (fmapcar (lambda (n) (* 2 n)) lstream)))
+      (is (equal '(10 9 8 7 6 5 4 3 2 1)
+                 (fmapcan (lambda (n) (list (* 2 n) (1- (* 2 n))))
+                          lstream)))
+      (is (equal '((10 8 6 4 2) (8 6 4 2) (6 4 2) (4 2) (2))
+                 (fmaplist (lambda (list)
+                             (fmapcar (lambda (n) (* 2 n)) list))
+                           lstream)))
+
+      (is (eq lstream (fmapc (lambda (n) (* 2 n)) lstream)))
+      (is (eq lstream (fmapl (lambda (list)
+                               (fmapcar (lambda (n) (* 2 n)) list))
+                             lstream))))))
+
