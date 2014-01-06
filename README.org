@@ -1,7 +1,56 @@
 
 * Eazylazy 
 
+Everyone write it yourself once.
+Everyone needs it.
+
 ** Usage
+
+#+BEGIN_SRC lisp
+(labels ((rec (n)
+           (lcons n (rec (1+ n)))))
+    (let ((lstream (rec 0)))
+      ;; you can either write in imperative/destructive style
+      (is (= 0 (fpop lstream)))
+      (is (= 1 (fpop lstream)))
+      (is (= 2 (fpop lstream)))
+      (is (= 3 (fpop lstream)))
+      (is (= 4 (fpop lstream))))
+
+    (let ((lstream (rec 0))
+          (max 5))
+      ;; or declarative/functional style
+      (labels ((rec2 (expected lcons)
+                 (when (< expected max)
+                   (is (= expected (fcar lcons)))
+                   (rec2 (1+ expected) (fcdr lcons)))))
+        (rec2 0 lstream))))
+#+END_SRC
+
+and forced ~map***~ family
+
+#+BEGIN_SRC lisp
+(labels ((rec (n)
+             (when (plusp n)
+               (lcons n (rec (1- n))))))
+    (let ((lstream (rec 5)))
+
+      (is (equal '(10 8 6 4 2)
+                 (fmapcar (lambda (n) (* 2 n)) lstream)))
+      (is (equal '(10 9 8 7 6 5 4 3 2 1)
+                 (fmapcan (lambda (n) (list (* 2 n) (1- (* 2 n))))
+                          lstream)))
+      (is (equal '((10 8 6 4 2) (8 6 4 2) (6 4 2) (4 2) (2))
+                 (fmaplist (lambda (list)
+                             (fmapcar (lambda (n) (* 2 n)) list))
+                           lstream)))
+
+      (is (eq lstream (fmapc (lambda (n) (* 2 n)) lstream)))
+      (is (eq lstream (fmapl (lambda (list)
+                               (fmapcar (lambda (n) (* 2 n)) list))
+                             lstream)))))
+#+END_SRC
+
 
 ** Dependencies
 
@@ -13,11 +62,15 @@ Also, it depends on the following libraries:
 
 + TRIVIAL-LAZY by  ::
     Trivial lazy macros and functions for Common Lisp.
++ ALEXANDRIA ::
++ CL-SYNTAX  ::
++ CL-ANNOT  ::
 
 
 
 ** Installation
 
+via [[http://www.quicklisp.org][Quicklisp]] local repository feature or asdf.
 
 ** Author
 
