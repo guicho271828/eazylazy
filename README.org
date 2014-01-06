@@ -52,10 +52,9 @@ and forced ~map***~ family
                              lstream)))))
 #+END_SRC
 
-- =force,delay= is provided by =trivial-lazy= .
-- =forcef= modifies the place. the evaluated value goes into the
-  original position.
-- and =llist,ltree= etc...
+1) =force,delay= is provided by =trivial-lazy= .
+2) =forcef= modifies the place. The fresh evaluated value goes into it.
+3) and =llist,ltree= etc...
 
 ** Dependencies
 
