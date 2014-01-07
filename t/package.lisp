@@ -6,6 +6,7 @@
 (in-package :cl-user)
 (defpackage :eazylazy.test
   (:use :cl
+        :trivial-lazy
         :eazylazy
         :fiveam))
 (in-package :eazylazy.test)
@@ -74,3 +75,23 @@
                                (fmapcar (lambda (n) (* 2 n)) list))
                              lstream))))))
 
+(test (freduce :depends-on lcons)
+  (labels ((rec (n)
+             (when (plusp n)
+               (lcons n (rec (- n 2))))))
+    (let ((lstream (rec 10)))
+      (is (fevery #'evenp lstream))))
+
+  (is (fsome #'minusp (llist 1 1 1 -1 1)))
+  (is (fsome #'=
+             (llist 1 2 0 4 5)
+             (llist 5 4 0 2 1)))
+  (is (fevery #'=
+              (llist 1 2 3 4 5)
+              (llist 1 2 3 4 5)))
+
+  (is (every  #'= (list 0 1 2)  (list 0 1 2 3)))
+  (is (fevery #'= (llist 0 1 2) (llist 0 1 2 3)))
+
+  (let ((larray (make-array 5 :initial-element (delay (* 2 (random 10))))))
+    (is (fevery #'evenp larray))))

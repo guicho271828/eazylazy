@@ -21,12 +21,14 @@
   :mailto ""
   :license ""
   :depends-on (:trivial-lazy
+               :alexandria
                :cl-syntax-annot)
   :components ((:module "src"
                 :components
                 ((:file :package)
                  (:file :basics)
                  (:file :mappers)
+                 (:file :reducers)
                  (:file :misc))
                 :serial t))
   :description ""
