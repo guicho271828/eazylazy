@@ -2,6 +2,13 @@
 (use-syntax :annot)
 
 @export
+@inline
+(defun force-safely (thunk?)
+  (if (functionp thunk?)
+      (force thunk?)
+      thunk?))
+
+@export
 (defmacro forcef (place)
   "Destructive version of `force'.
 It forces the value of the place and destructively set the value
@@ -13,7 +20,7 @@ Use only for the reader-intensive use."
     `(let* (,@(mapcar (lambda (var val)
                         (list var val))
                       vars vals)
-            (,(car store-vars) (force ,reader)))
+            (,(car store-vars) (force-safely ,reader)))
        ,writer)))
 
 @export
@@ -24,7 +31,7 @@ Use only for the reader-intensive use."
 
 (defmacro define-forced (name accessor &rest args)
   `(defun ,name ,args
-     (force (,accessor ,@args))))
+     (force-safely (,accessor ,@args))))
 
 (defmacro define-forced! (name accessor &rest args)
   `(defun ,name ,args
@@ -47,7 +54,7 @@ Use only for the reader-intensive use."
 
 @inline
 (defun faref (array &rest subscripts)
-  (force (apply #'aref array subscripts)))
+  (force-safely (apply #'aref array subscripts)))
 @inline
 (defun faref! (array &rest subscripts)
   (forcef (apply #'aref array subscripts)))
