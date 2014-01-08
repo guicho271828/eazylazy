@@ -95,3 +95,12 @@
 
   (let ((larray (make-array 5 :initial-element (delay (* 2 (random 10))))))
     (is (fevery #'evenp larray))))
+
+(test lmap
+  (is (equal '((0 4) (1 5) (2 6))
+             (fmapcar #'identity (lmapcar #'list (list 0 1 2) (list 4 5 6)))))
+
+  (is (equal '(((0 1 2) (4 5 6))
+               ((1 2) (5 6))
+               ((2) (6)))
+             (fmapcar #'identity (lmaplist #'list (list 0 1 2) (list 4 5 6))))))

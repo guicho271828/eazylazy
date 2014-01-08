@@ -29,6 +29,7 @@
                  (:file :basics)
                  (:file :mappers)
                  (:file :reducers)
+                 (:file :lmappers)
                  (:file :misc))
                 :serial t))
   :description ""
