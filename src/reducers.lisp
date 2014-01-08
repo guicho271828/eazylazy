@@ -16,13 +16,13 @@
 
 (defun %fsome-vector (pred n first-seq more-seqs)
   (or (apply pred
-             (force (handler-bind ((type-error
+             (force-safely (handler-bind ((type-error
                                     (lambda (c)
                                       (declare (ignore c))
                                       (return-from %fsome-vector nil))))
                       (aref first-seq n)))
              (mapcar (lambda (a)
-                       (force
+                       (force-safely
                         (handler-bind ((type-error
                                         (lambda (c)
                                           (declare (ignore c))
@@ -47,13 +47,13 @@
 (defun %fevery-vector (pred n first-seq more-seqs)
   (and 
    (apply pred
-          (force (handler-bind ((type-error
+          (force-safely (handler-bind ((type-error
                                  (lambda (c)
                                    (declare (ignore c))
                                    (return-from %fevery-vector t))))
                    (aref first-seq n)))
           (mapcar (lambda (a)
-                    (force
+                    (force-safely
                      (handler-bind ((type-error
                                      (lambda (c)
                                        (declare (ignore c))
