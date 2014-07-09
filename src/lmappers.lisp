@@ -3,6 +3,13 @@
 
 ;; lazy mappers
 
+;; copied from my own repo of trivial-lazy
+;; https://github.com/guicho271828/trivial-lazy/tree/at-least-provide-ftype-to-memo
+(deftype thunk (&optional result) `(function () ,result))
+(declaim (ftype (function ((thunk) &key (:thread-safe boolean)) (values (thunk))) memo))
+(declaim (inline memo))
+(declaim (inline force))
+
 @export
 (defun lmapcar (function &rest llists)
   "Apply FUNCTION to successive elements of lazy lists. Return lazy
